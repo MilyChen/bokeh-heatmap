@@ -28,11 +28,10 @@ data.columns.name = 'Month'
 data = data.reindex(columns=months_l) #resort columns by order of months list
 df = pd.DataFrame(data.stack(), columns=['rain']).reset_index()
 
-print data
-print df
+#print data
+#print df
 
 source = ColumnDataSource(df)  
-
 
 colors = ["#ffffff","#e6f7ff","#b3e6ff","#80d4ff","#4dc3ff"," #1ab2ff","#0099e6","#0077b3","#005580","#00334d"]
 
@@ -55,8 +54,3 @@ p.axis.major_label_standoff = 0
 p.xaxis.major_label_orientation = 1.0
 
 show(p)
-
-
-
-
-
