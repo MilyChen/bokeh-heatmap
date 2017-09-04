@@ -22,23 +22,23 @@ data['Month'] = rain_data['date'].apply(lambda x: x.split("/")[0])  # isolate mo
 data['Month'] = data['Month'].apply(lambda x: months_l[int(x) - 1])  # format months 
 data["rain"] = rain_data['rain_v']
 
-data= data.pivot(index='Year', columns = 'Month', values ='rain') #reshape the dataframe, Year as rows, month as cols
+data = data.pivot(index='Year', columns='Month', values='rain')  # reshape the dataframe, Year as rows, month as cols
 data.columns.name = 'Month'
 
-data = data.reindex(columns=months_l) #resort columns by order of months list
+data = data.reindex(columns=months_l)  # resort columns by order of months list
 df = pd.DataFrame(data.stack(), columns=['rain']).reset_index()
 
-#print data
-#print df
+# print data
+# print df
 
 source = ColumnDataSource(df)  
 
-colors = ["#ffffff","#e6f7ff","#b3e6ff","#80d4ff","#4dc3ff"," #1ab2ff","#0099e6","#0077b3","#005580","#00334d"]
+colors = ["#ffffff", "#e6f7ff", "#b3e6ff", "#80d4ff", "#4dc3ff", "#1ab2ff", "#0099e6", "#0077b3", "#005580", "#00334d"]
 
 mapper = LinearColorMapper(palette=colors, low=df.rain.min(), high=df.rain.max())
 
-p = figure(title="Toronto Rainfall", x_range=list(data.index), y_range=list(reversed(data.columns))
-                ,tools="")
+p = figure(title="Toronto Rainfall (1938-2017)", x_range=list(data.index), y_range=list(reversed(data.columns))
+                , tools="")
 
 p.rect('Year', 'Month', width=1, height=1, source=source, line_color=None, fill_color={'field': 'rain', 'transform':mapper}) 
        
