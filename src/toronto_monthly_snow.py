@@ -7,37 +7,38 @@ import pandas as pd
 from bokeh.io import output_file, show
 from bokeh.models import BasicTicker, ColorBar, ColumnDataSource, LinearColorMapper, PrintfTickFormatter
 from bokeh.plotting import figure
+from bokeh.palettes import brewer
 
 # source data from weatherstats.ca based on Environment and Climate Change Canada data
 months_l = ('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec')
-output_file("toronto_rain.html")
+output_file("toronto_snow.html")
 
-rain_data = pd.read_csv('C:\Users\Mily.mc-pc\Desktop\weather data.csv')
-rain_data = rain_data.dropna()
+snow_data = pd.read_csv('C:\Users\Mily.mc-pc\Desktop\weather data.csv')
+snow_data = snow_data.dropna()
 
 data = pd.DataFrame()
-data['Year'] = rain_data['date'].apply(lambda x: x.split("/")[2])  # isolate Years from date
+data['Year'] = snow_data['date'].apply(lambda x: x.split("/")[2])  # isolate Years from date
 data['Year'] = data['Year'].astype(str)
-data['Month'] = rain_data['date'].apply(lambda x: x.split("/")[0])  # isolate month from date
+data['Month'] = snow_data['date'].apply(lambda x: x.split("/")[0])  # isolate month from date
 data['Month'] = data['Month'].apply(lambda x: months_l[int(x) - 1])  # format months 
-data["rain"] = rain_data['rain_v']
+data["snow"] = snow_data['snow_v']
 
-data = data.pivot(index='Year', columns='Month', values='rain')  # reshape the dataframe, Year as rows, month as cols
+data = data.pivot(index='Year', columns='Month', values='snow')  # reshape the dataframe, Year as rows, month as cols
 data.columns.name = 'Month'
 
 data = data.reindex(columns=months_l)  # resort columns by order of months list
-df = pd.DataFrame(data.stack(), columns=['rain']).reset_index()
+df = pd.DataFrame(data.stack(), columns=['snow']).reset_index()
 
 source = ColumnDataSource(df)  
 
-colors = ["#ffffff", "#e6f7ff", "#b3e6ff", "#80d4ff", "#4dc3ff", "#1ab2ff", "#0099e6", "#0077b3", "#005580", "#00334d"]
+colors = brewer['BuGn'][9]
 
-mapper = LinearColorMapper(palette=colors, low=df.rain.min(), high=df.rain.max())
+mapper = LinearColorMapper(palette=colors, low=df.snow.min(), high=df.snow.max())
 
-p = figure(title="Toronto Rainfall (1938-2017)", x_range=list(data.index), y_range=list(reversed(data.columns))
+p = figure(title="Toronto Snowfall (1938-2017)", x_range=list(data.index), y_range=list(reversed(data.columns))
                 , tools="")
 
-p.rect('Year', 'Month', width=1, height=1, source=source, line_color=None, fill_color={'field': 'rain', 'transform':mapper}) 
+p.rect('Year', 'Month', width=1, height=1, source=source, line_color=None, fill_color={'field': 'snow', 'transform':mapper}) 
        
 color_bar = ColorBar(color_mapper=mapper, location=(0, 0),
                      ticker=BasicTicker(desired_num_ticks=len(colors)),
