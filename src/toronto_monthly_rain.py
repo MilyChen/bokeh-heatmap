@@ -12,7 +12,7 @@ from bokeh.plotting import figure
 months_l = ('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec')
 output_file("toronto_rain.html")
 
-rain_data = pd.read_csv('C:\Users\Mily.mc-pc\Desktop\weather data.csv')
+rain_data = pd.read_csv('C:\...\weather data.csv')
 rain_data = rain_data.dropna()
 
 data = pd.DataFrame()
