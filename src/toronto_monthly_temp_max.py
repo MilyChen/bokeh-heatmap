@@ -13,7 +13,7 @@ from bokeh.palettes import brewer
 months_l = ('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec')
 output_file("toronto_temp.html")
 
-temp_data = pd.read_csv('C:\Users\Mily.mc-pc\Desktop\weather data.csv')
+temp_data = pd.read_csv('C:\...\weather data.csv')
 temp_data = temp_data.dropna()
 
 data = pd.DataFrame()
