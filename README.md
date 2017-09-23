@@ -26,10 +26,6 @@ A comprehensive list of the different palette libraries an be found here: https:
 
 > Toronto Temperature Heatmap using the Read Blue Palette
 > ![alt text](https://github.com/MilyChen/bokeh_heatmap/blob/master/src/toronto_temp.PNG "Toronto Monthly Temperature")
-Toronto Snowfall Heatmap using the Blue Green Palette
-> ![alt text](https://github.com/MilyChen/bokeh_heatmap/blob/master/src/toronto_snow.PNG "Toronto Monthly Snowfall")
-
-
 
 ## Source Data 
 >weatherstats.ca based on Environment and Climate Change Canada data
